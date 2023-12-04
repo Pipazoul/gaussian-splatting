@@ -1,0 +1,46 @@
+# Configuration for Cog ⚙️
+# Reference: https://github.com/replicate/cog/blob/main/docs/yaml.md
+
+build:
+  # set to true if your model requires a GPU
+  gpu: true
+  cuda: "11.6.2"
+
+
+  # a list of ubuntu apt packages to install
+  system_packages:
+    - unzip
+    - build-essential
+    - wget 
+    - ninja-build 
+    - libgl-dev 
+    - ffmpeg
+    - zip
+  #   - "libgl1-mesa-glx"
+  #   - "libglib2.0-0"
+
+  # python version in the form '3.11' or '3.11.4'
+  python_version: "3.7.13"
+
+  # a list of packages in the format <package-name>==<version>
+  python_packages:
+    #- "cudatoolkit==11.6"
+    - "plyfile==0.8.1"
+    - "pip==22.3.1"
+    - "torchaudio==0.12.1"
+    - "torchvision==0.13.1"
+    - "tqdm"
+    - "pandas"
+  #   - "numpy==1.19.4"
+  #   - "torch==1.8.0"
+  #   - "torchvision==0.9.0"
+
+  # commands run after the environment is setup
+  run:
+    - "TORCH_CUDA_ARCH_LIST=\"3.5;5.0;6.0;6.1;7.0;7.5;8.0;8.6+PTX\" pip install git+https://github.com/graphdeco-inria/diff-gaussian-rasterization.git@59f5f77e3ddbac3ed9db93ec2cfe99ed6c5d121d"
+    - "TORCH_CUDA_ARCH_LIST=\"3.5;5.0;6.0;6.1;7.0;7.5;8.0;8.6+PTX\" pip install git+https://github.com/Pipazoul/simple-knn.git@main"
+  #   - "echo env is ready!"
+  #   - "echo another command if needed"
+
+# predict.py defines how predictions are run on your model
+predict: "predict.py:Predictor"
